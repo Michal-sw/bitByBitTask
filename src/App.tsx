@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { BooksProvider } from './core/providers/BooksContext';
 import Navbar from './components/navbar/Navbar';
+import BookList from './components/books/BooksList';
 
 function App() {
 
   return (
     <div className="App">
+      <BooksProvider>
       <BrowserRouter>
         <Navbar/>
         <Routes>
@@ -16,7 +19,7 @@ function App() {
           }/>
           <Route path='/books' element=
             {
-              <h1>Book List</h1>
+              <BookList/>
             }/>
           <Route path='/books/:id' element=
             {
@@ -28,6 +31,7 @@ function App() {
             }/>
         </Routes>
       </BrowserRouter>
+      </BooksProvider>
     </div>
   );
 }
