@@ -1,8 +1,7 @@
 import axios, { Axios, AxiosResponse } from "axios";
 import { BookDT } from "../core/types/BookDT";
-import { BookApiResponseDT } from "../core/types/BookAPIResponse";
 
-const apiPath = process.env.REACT_APP_API_PATH ?? 'https://fakerapi.it/api/v1';
+const apiPath = process.env.REACT_APP_API_PATH ?? 'https://my-json-server.typicode.com/dmitrijt9/book-api-mock';
 
 const axiosInstance = axios.create({
     headers: {
@@ -32,11 +31,11 @@ const deleteBook = async (id: number) => {
 
 interface AxiosService {
     axiosInstance: Axios,
-    getBooks: () => Promise<AxiosResponse<BookApiResponseDT>>,
-    getBookById: (id: number) => Promise<AxiosResponse<BookApiResponseDT>>,
-    updateBook: (id: number, values: any) => Promise<AxiosResponse<BookApiResponseDT>>,
-    postBook: (values: any) => Promise<AxiosResponse<BookApiResponseDT>>,
-    deleteBook: (id: number) => Promise<AxiosResponse<BookApiResponseDT>>,
+    getBooks: () => Promise<AxiosResponse<[BookDT]>>,
+    getBookById: (id: number) => Promise<AxiosResponse<[BookDT]>>,
+    updateBook: (id: number, values: any) => Promise<AxiosResponse<[BookDT]>>,
+    postBook: (values: any) => Promise<AxiosResponse<[BookDT]>>,
+    deleteBook: (id: number) => Promise<AxiosResponse<[BookDT]>>,
 };
 
 const axiosService: AxiosService = {

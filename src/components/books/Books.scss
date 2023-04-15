@@ -1,0 +1,22 @@
+#book-list-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 80vw;
+    align-items: center;
+
+    #books-list {
+        width: 100%;
+        .list-item {
+            width: 100%;
+
+            &:hover .delete-icon {
+                color: red;
+            }
+        }
+    }
+}
+
+.delete-icon {
+    color: rgba(0, 0, 0, 0.219);
+}

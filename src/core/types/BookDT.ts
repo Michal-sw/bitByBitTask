@@ -1,13 +1,9 @@
 export interface BookDT {
     id?: number;
+    author_id: number;
     title: string;
-    author: string;
-    genre: string;
-    description?: string;
+    cover_image?: string;
+    pages?: number;
+    releaesDate?: string;
     isbn?: string;
-    image?: string;
-    published?: string;
-    publisher?: string;
 }
-
-

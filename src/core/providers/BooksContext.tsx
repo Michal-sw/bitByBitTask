@@ -22,8 +22,8 @@ export function BooksProvider({ children }: {children: ReactElement }) {
         bookService
             .getBooks()
             .then(res => {
-                if (!res.data.data) return;
-                setBooks(res.data.data);
+                if (!res.data.length) return;
+                setBooks(res.data);
             })
             .catch(err => console.log(err));
     }, []);
@@ -37,7 +37,7 @@ export function BooksProvider({ children }: {children: ReactElement }) {
         bookService
             .updateBook(newBook.id, newBook)
             .then(res => {
-                if (res.data.code !== 200) return;
+                if (res.status !== 200) return;
                 setBooks(books
                     .map(act => act.id === newBook.id ? newBook : act)
                 );
@@ -49,7 +49,7 @@ export function BooksProvider({ children }: {children: ReactElement }) {
         bookService
             .deleteBook(id)
             .then(res => {
-                if (res.data.code !== 200) return;
+                if (res.status !== 200) return;
                 setBooks(books.filter(act => act.id !== id));
             }).catch(err => console.log(err));
     }
