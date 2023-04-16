@@ -5,6 +5,8 @@ import { BooksProvider } from './core/providers/BooksContext';
 import Navbar from './components/navbar/Navbar';
 import BookList from './components/books/BooksList';
 import BookDetails from './components/books/BookDetails';
+import Header from './components/commons/Header';
+import AddBook from './components/books/AddBook';
 
 function App() {
 
@@ -16,7 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element=
           {
-            <h1>Home</h1>
+            <Header>Home</Header>
           }/>
           <Route path='/books' element=
             {
@@ -28,7 +30,7 @@ function App() {
             }/>
           <Route path="/books/add" element=
             {
-              <h1>Add book</h1>
+              <AddBook/>
             }/>
         </Routes>
       </BrowserRouter>

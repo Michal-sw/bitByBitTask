@@ -14,8 +14,8 @@ const BookDetails = () => {
     const [book, setBook] = useState<BookDT|undefined>(undefined);
     const [isReadOnly, setIsReadOnly] = useState(true);
     const firstInput = useRef<any>(null);
-    const { handleSubmit, control, setError, formState: {errors}, clearErrors } = useForm();
 
+    const { handleSubmit, control, setError, formState: {errors}, clearErrors } = useForm();
     useEffect(() => {
         setBook(books.find(b => b.id === Number(id)));
     // eslint-disable-next-line react-hooks/exhaustive-deps

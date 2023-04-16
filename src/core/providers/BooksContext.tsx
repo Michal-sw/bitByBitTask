@@ -31,7 +31,10 @@ export function BooksProvider({ children }: {children: ReactElement }) {
     }, []);
 
     const addBook = useCallback((book: BookDT) => {
-        setBooks([...books, book]);
+        setBooks((prevBooks) => [...prevBooks, {
+            ...book,
+            id: Math.floor(Math.random() * 90 + 10)
+        }]);
     }, [])
 
     function editBook(newBook: BookDT) {
@@ -44,7 +47,14 @@ export function BooksProvider({ children }: {children: ReactElement }) {
                     .map(act => act.id === newBook.id ? newBook : act)
                 );
                 setEditCounter(editCounter+1)
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                console.log(err);
+                console.log("API failed but book updated");
+                setBooks(books
+                    .map(act => act.id === newBook.id ? newBook : act)
+                );
+                setEditCounter(editCounter+1)
+            });
     }
 
     const deleteBook = useCallback((id: number) => {
