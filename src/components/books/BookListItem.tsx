@@ -1,25 +1,26 @@
-import React from "react";
+import React, { memo } from "react";
 import useBooks from "../../core/providers/BooksContext";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { BookDT } from "../../core/types/BookDT";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 interface BookListItemProps {
-    book: BookDT;
+    title: string;
+    id?: number;
+    deleteBook: any;
 }
 
-const BookListItem = ({ book }: BookListItemProps) => {
-    const { deleteBook } = useBooks();
+const BookListItem = memo(({ id, title, deleteBook }: BookListItemProps) => {
 
     const handleDelete = () => {
-        if (book.id) deleteBook(book.id);
+        if (id) deleteBook(id);
     }
 
+    console.log("BookListItem Rendered ", id, " ", title);
     return (
-        <ListItem 
-            key={book.id} className="list-item">
+        <ListItem className="list-item">
             <ListItemButton>
-                <ListItemText primary={book.title}/>
+                <ListItemText primary={title}/>
                 <ListItemIcon>
                     <DeleteForeverIcon 
                         className="delete-icon"
@@ -29,6 +30,6 @@ const BookListItem = ({ book }: BookListItemProps) => {
             </ListItemButton>
         </ListItem>
     );
-}
+})
 
 export default BookListItem;

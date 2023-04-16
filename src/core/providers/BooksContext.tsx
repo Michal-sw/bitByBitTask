@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { BookDT } from "../types/BookDT";
 import bookService from "../../services/bookService";
 
@@ -14,7 +14,6 @@ const BookContext = createContext<BookContextType>(
 );
 
 export function BooksProvider({ children }: {children: ReactElement }) {
-    console.log('BooksProvider Rendered');
     const [books, setBooks] = useState<BookDT[]>([]);
     const [editCounter, setEditCounter] = useState<number>(0);
 
@@ -28,9 +27,9 @@ export function BooksProvider({ children }: {children: ReactElement }) {
             .catch(err => console.log(err));
     }, []);
 
-    function addBook(book: BookDT) {
+    const addBook = useCallback((book: BookDT) => {
         setBooks([...books, book]);
-    }
+    }, [])
 
     function editBook(newBook: BookDT) {
         if (!newBook.id) return;
@@ -45,21 +44,21 @@ export function BooksProvider({ children }: {children: ReactElement }) {
             }).catch(err => console.log(err));
     }
 
-    function deleteBook(id: number) {
+    const deleteBook = useCallback((id: number) => {
+        setBooks((book) => book.filter(act => act.id !== id));
         bookService
             .deleteBook(id)
             .then(res => {
                 if (res.status !== 200) return;
-                setBooks(books.filter(act => act.id !== id));
             }).catch(err => console.log(err));
-    }
+    },[]);
 
     const memoedValue = useMemo(
         () => ({
-        books,
-        addBook,
-        editBook,
-        deleteBook,
+            books,
+            addBook,
+            editBook,
+            deleteBook,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [books.length, editCounter]
@@ -67,7 +66,7 @@ export function BooksProvider({ children }: {children: ReactElement }) {
 
     return (
         <BookContext.Provider value={memoedValue}>
-        {children}
+            {children}
         </BookContext.Provider>
     );
 }

@@ -5,7 +5,7 @@ import { Box, CircularProgress, List, Typography } from "@mui/material";
 import BookListItem from "./BookListItem";
 
 const BookList = () => {
-    const { books } = useBooks();
+    const { books, deleteBook } = useBooks();
 
     return (
         <Box id='book-list-container' sx={{ boxShadow: 10 }}>
@@ -22,7 +22,9 @@ const BookList = () => {
                             {books.map((book) =>
                                 <BookListItem
                                     key={book.id}
-                                    book={book}
+                                    title={book.title}
+                                    id={book.id}
+                                    deleteBook={deleteBook}
                                 />
                             )}
                         </List>
