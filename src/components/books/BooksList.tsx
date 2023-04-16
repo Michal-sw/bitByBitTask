@@ -1,22 +1,28 @@
 import React from "react";
 import './Books.scss';
-import useBooks from "../../core/providers/BooksContext";
-import { Box, CircularProgress, List, Typography } from "@mui/material";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';import useBooks from "../../core/providers/BooksContext";
+import { Box, Button, CircularProgress, List } from "@mui/material";
 import BookListItem from "./BookListItem";
+import { useNavigate } from "react-router-dom";
+import Header from "../commons/Header";
 
 const BookList = () => {
-    const { books, deleteBook } = useBooks();
+    const { books, deleteBook, isPreloaded } = useBooks();
+    const navigate = useNavigate();
 
     return (
         <Box id='book-list-container' sx={{ boxShadow: 10 }}>
-            <Typography
-                sx={{ mt: 2 }}
-                variant="h3"
+            <Header>Book List</Header>
+            <Button
+                sx={{ mt: 2, mb: 2}}
+                endIcon={<AddOutlinedIcon/>}
+                variant="contained"
+                onClick={() => navigate('/books/add')}
             >
-                Book List
-            </Typography>
+                ADD
+            </Button>
             {
-                books.length !== 0 
+                isPreloaded
                     ?
                         <List id='books-list'>
                             {books.map((book) =>
@@ -28,7 +34,7 @@ const BookList = () => {
                                 />
                             )}
                         </List>
-                    : <CircularProgress sx={{mt: 2, mb: 2}}/>
+                    :  <CircularProgress sx={{mt: 2, mb: 2}}/>
             }
 
         </Box>

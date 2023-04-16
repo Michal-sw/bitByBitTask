@@ -1,8 +1,7 @@
-import React, { memo } from "react";
-import useBooks from "../../core/providers/BooksContext";
+import React, { SyntheticEvent, memo } from "react";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { BookDT } from "../../core/types/BookDT";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useNavigate } from "react-router-dom";
 
 interface BookListItemProps {
     title: string;
@@ -11,25 +10,28 @@ interface BookListItemProps {
 }
 
 const BookListItem = memo(({ id, title, deleteBook }: BookListItemProps) => {
+    const navigate = useNavigate();
 
-    const handleDelete = () => {
+    const handleDelete = (event: SyntheticEvent) => {
+        event.stopPropagation();
         if (id) deleteBook(id);
-    }
+    };
 
-    console.log("BookListItem Rendered ", id, " ", title);
     return (
         <ListItem className="list-item">
-            <ListItemButton>
+            <ListItemButton
+                onClick={() => navigate(`/books/${id}`)}
+            >
                 <ListItemText primary={title}/>
                 <ListItemIcon>
-                    <DeleteForeverIcon 
+                    <DeleteForeverIcon
                         className="delete-icon"
                         onClick={handleDelete}
                     />
                 </ListItemIcon>
             </ListItemButton>
         </ListItem>
-    );
+    )
 })
 
 export default BookListItem;
