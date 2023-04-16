@@ -29,9 +29,13 @@
 }
 
 .lock-icon {
+    transform: scale(1.5);
     align-self: center;
     width: 36px;
-    height: 100px;;
+    height: 100px;
+    &:hover {
+        color: var(--primary) !important;
+    }
 }
 
 .delete-icon {
