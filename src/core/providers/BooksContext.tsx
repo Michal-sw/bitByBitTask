@@ -4,6 +4,7 @@ import bookService from "../../services/bookService";
 
 interface BookContextType {
     books: BookDT[];
+    isPreloaded: boolean;
     addBook: (book: BookDT) => void;
     editBook: (book: BookDT) => void;
     deleteBook: (id: number) => void;
@@ -15,6 +16,7 @@ const BookContext = createContext<BookContextType>(
 
 export function BooksProvider({ children }: {children: ReactElement }) {
     const [books, setBooks] = useState<BookDT[]>([]);
+    const [isPreloaded, setIsPreloaded] = useState<boolean>(false);
     const [editCounter, setEditCounter] = useState<number>(0);
 
     useEffect(() => {
@@ -23,6 +25,7 @@ export function BooksProvider({ children }: {children: ReactElement }) {
             .then(res => {
                 if (!res.data.length) return;
                 setBooks(res.data);
+                setIsPreloaded(true);
             })
             .catch(err => console.log(err));
     }, []);
@@ -56,6 +59,7 @@ export function BooksProvider({ children }: {children: ReactElement }) {
     const memoedValue = useMemo(
         () => ({
             books,
+            isPreloaded,
             addBook,
             editBook,
             deleteBook,

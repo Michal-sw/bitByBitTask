@@ -4,6 +4,6 @@ export interface BookDT {
     title: string;
     cover_image?: string;
     pages?: number;
-    releaesDate?: string;
+    releaseDate?: string;
     isbn?: string;
 }

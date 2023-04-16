@@ -11,12 +11,32 @@
             width: 100%;
 
             &:hover .delete-icon {
-                color: red;
+                color: black;
             }
         }
     }
 }
 
+#book-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    >h3 {
+        align-self: center;
+        margin-bottom: 8px;
+    }
+}
+
+.lock-icon {
+    align-self: center;
+    width: 36px;
+    height: 100px;;
+}
+
 .delete-icon {
     color: rgba(0, 0, 0, 0.219);
+    &:hover {
+        color: red !important;
+    }
 }

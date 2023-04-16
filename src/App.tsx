@@ -4,6 +4,7 @@ import './App.css';
 import { BooksProvider } from './core/providers/BooksContext';
 import Navbar from './components/navbar/Navbar';
 import BookList from './components/books/BooksList';
+import BookDetails from './components/books/BookDetails';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
             }/>
           <Route path='/books/:id' element=
             {
-              <p>Book detail</p>
+              <BookDetails/>
             }/>
           <Route path="/books/add" element=
             {
